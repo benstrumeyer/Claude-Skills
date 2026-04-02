@@ -1,23 +1,48 @@
 ---
 name: commit
-description: Group changed files by feature and create conventional commits
+description: Group changed files by feature, create PRs, and merge them
 user-invocable: true
 ---
 
 Run `git status`, `git diff`, `git diff --cached`, and `git log --oneline -10` in parallel.
 
-Group changed files into semantic clusters (files implementing the same logical change). Each cluster becomes one commit. Stage specific files per group — never `git add -A`.
+Group changed files into semantic clusters (files implementing the same logical change). Each cluster becomes one PR with one commit. Stage specific files per group — never `git add -A`.
 
-Commit message format:
+## Workflow per cluster
+
+For each semantic cluster, do the following **sequentially** (finish one cluster before starting the next so merges into master stay clean):
+
+1. **Start from current branch**: Make sure you're on the base branch (whatever branch was active when the skill was invoked). Store this as `BASE_BRANCH`.
+2. **Create branch**: `git checkout -b feature/<short-concise-name>` — the name should be lowercase, hyphenated, and meaningful (e.g. `feature/add-user-auth`, `feature/fix-pipeline-timeout`, `feature/update-readme-badges`)
+3. **Stage specific files**: `git add <file1> <file2> ...`
+4. **Commit** using HEREDOC format:
 ```
+git commit -m "$(cat <<'EOF'
 <type>(<scope>): <imperative lowercase description under 60 chars>
 
 Co-Authored-By: Claude Opus 4.6 (1M context) <noreply@anthropic.com>
+EOF
+)"
 ```
+5. **Push**: `git push -u origin feature/<short-concise-name>`
+6. **Create PR**: `gh pr create --title "<same as commit message first line>" --body "$(cat <<'EOF' ... EOF)"`
+7. **Approve**: `gh pr review --approve`
+8. **Merge**: `gh pr merge --merge --delete-branch`
+9. **Return to base**: `git checkout $BASE_BRANCH && git pull`
+
+Then proceed to the next cluster.
+
+## Commit message format
 
 Types: `feat` `fix` `refactor` `perf` `docs` `style` `test` `build` `ci` `chore`
 Scope: short noun for the area (e.g. `pipeline`, `api`). Omit if cross-cutting.
 Add body only if the "why" isn't obvious. Breaking changes: `feat(api)!: description`
 
-Never commit secrets. Never push unless asked. Never amend — always new commits.
-Use HEREDOC for commit messages. Verify with `git log` and `git status` after.
+## Rules
+
+- Never commit secrets
+- Never amend — always new commits
+- Each PR gets exactly 1 commit
+- Process clusters sequentially so each branch is based on the latest master
+- Use HEREDOC for commit messages and PR bodies
+- Verify with `git log` and `git status` after all clusters are done
