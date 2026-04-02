@@ -28,7 +28,7 @@ EOF
 6. **Create PR**: `gh pr create --title "<same as commit message first line>" --body "$(cat <<'EOF' ... EOF)"`
 7. **Approve**: `gh pr review --approve`
 8. **Merge**: `gh pr merge --merge --delete-branch`
-9. **Return to base**: `git checkout $BASE_BRANCH && git pull`
+9. **Return to base**: `git checkout $BASE_BRANCH`
 
 Then proceed to the next cluster.
 
