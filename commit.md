@@ -26,8 +26,7 @@ EOF
 ```
 5. **Push**: `git push -u origin feature/<short-concise-name>`
 6. **Create PR**: `gh pr create --title "<same as commit message first line>" --body "$(cat <<'EOF' ... EOF)"`
-7. **Approve**: `gh pr review --approve`
-8. **Merge**: `gh pr merge --merge --delete-branch`
+7. **Merge**: `gh pr merge --merge --delete-branch --admin`
 9. **Return to base**: `git checkout $BASE_BRANCH`
 
 Then proceed to the next cluster.
