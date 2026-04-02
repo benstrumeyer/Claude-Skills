@@ -39,6 +39,7 @@ Add body only if the "why" isn't obvious. Breaking changes: `feat(api)!: descrip
 
 ## Rules
 
+- This workflow is designed for personal/solo repos. The `--admin` merge flag skips branch protection and approval requirements. For team repos, add back `gh pr review --approve` (from a different account) and remove `--admin`.
 - Never commit secrets
 - Never amend — always new commits
 - Each PR gets exactly 1 commit
