@@ -463,22 +463,22 @@ These remaps enable left-hand-only terminal navigation + mouse while using Wispr
 
 ## WisprFlow Pair Programming Setup
 
-Voice-driven pair programming using VoiceMeeter Banana to route both your mic and your Discord partner's audio into WisprFlow for transcription — while still hearing everything through your headphones normally.
+Voice-driven pair programming using VoiceMeeter Banana to route both your mic and call audio (Discord, Google Meet, Zoom, etc.) into WisprFlow for transcription — while still hearing everything through your headphones normally.
 
 See the full step-by-step guide: [**wisprflow-pair-programming.md**](wisprflow-pair-programming.md)
 
 **Quick summary:**
 
 ```
-Mic ──────► VoiceMeeter Strip 1 ──► B1 (WisprFlow) + A1 (Headphones)
-Discord ──► VoiceMeeter Virtual Input ──► B1 (WisprFlow) + A1 (Headphones)
+Mic ─────────────► VoiceMeeter Strip 1 ──► B1 (WisprFlow) + A1 (Headphones)
+Discord/Meet/etc ► VoiceMeeter Virtual Input ──► B1 (WisprFlow) + A1 (Headphones)
 ```
 
 | Setting | Value |
 |---------|-------|
 | VoiceMeeter A1 | Headphones (Realtek) |
 | WisprFlow Input | Voicemeeter Out B1 |
-| Discord Output | VoiceMeeter Input (VAIO) |
+| App Speaker Output | VoiceMeeter Input (VAIO) |
 | Windows Output | VoiceMeeter Input (VAIO) |
 
 ## Key Behaviors
