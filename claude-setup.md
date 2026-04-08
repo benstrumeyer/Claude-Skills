@@ -62,12 +62,12 @@ For tasks requiring parallel browser automation (e.g., scraping multiple sites s
 
 2. A PowerShell function loads the fleet only when needed:
    ```powershell
-   function job-search {
+   function scrape {
      claude --dangerously-skip-permissions --mcp-config "$env:USERPROFILE\.claude\mcp-playwright-fleet.json" @args
    }
    ```
 
-3. Normal `claude` instances get just 1 Playwright server (from the base `.mcp.json`). The `job-search` alias adds 20 more, giving 21 total for parallel browser work.
+3. Normal `claude` instances get just 1 Playwright server (from the base `.mcp.json`). The `scrape` alias adds 20 more, giving 21 total for parallel browser work.
 
 **Why this pattern:**
 - Avoids spinning up 21 browser processes for every Claude session
@@ -81,7 +81,7 @@ For tasks requiring parallel browser automation (e.g., scraping multiple sites s
 | [branch](branch.md) | `/branch` | Spawns a background Claude instance on a new feature branch worktree |
 | [commit](commit.md) | `/commit` | Groups changed files by feature, creates feature branches, PRs, and auto-merges |
 | git-init | `/git-init` | Initializes a git repo with a punny first commit |
-| job-search | `/job-search` | Orchestrates parallel task execution via multi-Playwright MCP |
+| scrape | `/scrape` | Orchestrates parallel browser automation via multi-Playwright MCP |
 
 ## Keybindings
 
@@ -435,4 +435,4 @@ These remaps enable left-hand-only terminal navigation + mouse while using Wispr
 3. Copy skills from this repo to `~/.claude/skills/<skill-name>/skill.md`
 4. Run `/config` → Enable Remote Control for all sessions → `true`
 5. Install Playwright plugin: `/plugins` → search "playwright" → install
-6. (Optional) Copy `mcp-playwright-fleet.json` to `~/.claude/` and add the `job-search` function to your shell profile for multi-Playwright orchestration
+6. (Optional) Copy `mcp-playwright-fleet.json` to `~/.claude/` and add the `scrape` function to your shell profile for multi-Playwright orchestration
