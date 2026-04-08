@@ -25,7 +25,26 @@ EOF
 )"
 ```
 5. **Push**: `git push -u origin feature/<short-concise-name>`
-6. **Create PR**: `gh pr create --title "<same as commit message first line>" --body "$(cat <<'EOF' ... EOF)"`
+6. **Create PR** with a detailed, well-formatted body:
+```
+gh pr create --title "<same as commit message first line>" --body "$(cat <<'EOF'
+## Summary
+
+<1-2 sentence high-level description of what this change does and why>
+
+## Changes
+
+- <concise bullet for each meaningful change — group by file or logical unit>
+- <e.g. "Add `validateInput()` helper to `src/utils/validation.ts`">
+- <e.g. "Update `UserCard` component to support dark mode variants">
+- <e.g. "Remove deprecated `legacyAuth` middleware from route handlers">
+
+## Notes
+
+<Optional: anything a reviewer should know — migration steps, breaking changes, testing instructions. Omit this section if nothing special.>
+EOF
+)"
+```
 7. **Merge**: `gh pr merge --merge --delete-branch --admin`
 9. **Return to base**: `git checkout $BASE_BRANCH`
 
