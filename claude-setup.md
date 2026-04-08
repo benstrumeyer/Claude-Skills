@@ -83,6 +83,47 @@ For tasks requiring parallel browser automation (e.g., scraping multiple sites s
 | git-init | `/git-init` | Initializes a git repo with a punny first commit |
 | scrape | `/scrape` | Orchestrates parallel browser automation via multi-Playwright MCP |
 
+## Mouse (UtechSmart Venus 16400DPI)
+
+12-button thumb grid + DPI controls. Profile saved in [`mouse-profiles/RSProfile1.pfd`](mouse-profiles/RSProfile1.pfd).
+
+**Thumb Button Grid** (left side, holding mouse, top = closest to scroll wheel):
+
+```
+Row 1 (top):     [ 7 ]  [ 8 ]  [ 9 ]
+Row 2:           [10 ]  [11 ]  [12 ]
+Row 3:           [13 ]  [14 ]  [15 ]
+Row 4 (bottom):  [16 ]  [17 ]  [18 ]
+```
+
+**Thumb Button Mappings:**
+
+| Button | Mapping | Purpose |
+|--------|---------|---------|
+| 7 | `Ctrl+Shift+Tab` | Previous tab |
+| 8 | `Alt+Right` | Navigate forward |
+| 9 | `Alt+Tab` | App switcher |
+| 10 | `Ctrl+Tab` | Next tab |
+| 11 | `Alt+Left` | Navigate back |
+| 12 | DPI switch | Cycle DPI on-the-fly |
+| 13 | `Win+Ctrl+Left` | Previous virtual desktop |
+| 14 | `Win+Alt+Left` | — |
+| 15 | `Win+Shift+Right` | Move window to right monitor |
+| 16 | `Win+Ctrl+Right` | Next virtual desktop |
+| 17 | `Win+Alt+Right` | — |
+| 18 | `Ctrl+W` | Close tab |
+
+**Other Buttons:**
+
+| Button | Mapping |
+|--------|---------|
+| 1–3 | Left click, Right click, Middle click (defaults) |
+| 4 | Scroll wheel tilt |
+| 5–6 | DPI up / DPI down |
+| 19–20 | Built-in functions |
+
+**Settings:** Sensitivity 10, Polling Rate 2, DPI stage 5 levels, Acceleration on.
+
 ## Keybindings
 
 ### System-Level Key Remaps (AutoHotKey / PowerToys)
