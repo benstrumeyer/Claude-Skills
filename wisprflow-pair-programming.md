@@ -169,3 +169,127 @@ VoiceMeeter sits in the middle of all your audio:
 - If audio breaks after a reboot, restart VoiceMeeter first before anything else
 - Google Meet remembers audio device settings per browser — set once, works for all future calls
 - This works with **any calling app** that lets you pick audio devices — Zoom, Teams, Slack huddles, etc. Just set the app's speaker output to `VoiceMeeter Input (VAIO)` and its mic to your physical microphone.
+
+---
+
+# Neovim Terminal Cheatsheet
+## Navigate Claude Code output with vim commands
+
+Neovim lets you scroll and search all Claude output using vim keybindings. Run Claude Code inside a Neovim terminal buffer instead of a plain shell.
+
+### Setup (Windows)
+
+```powershell
+# Neovim is installed at:
+# C:\Users\ben\AppData\Local\nvim-bin\nvim-win64\bin\nvim.exe
+
+# Config file (PowerShell shell):
+# C:\Users\ben\AppData\Local\nvim\init.lua
+
+# Launch
+nvim
+:terminal        # opens PowerShell inside nvim
+claude           # run Claude Code as normal
+```
+
+### Switching Modes
+
+| Keys | Action |
+|------|--------|
+| `Ctrl+\ Ctrl+n` | Exit terminal insert mode → vim normal mode |
+| `i` or `a` | Return to terminal (resume typing to Claude) |
+
+### Navigation (normal mode)
+
+| Keys | Action |
+|------|--------|
+| `j` / `k` | Down / up one line |
+| `Ctrl+d` / `Ctrl+u` | Half page down / up |
+| `Ctrl+f` / `Ctrl+b` | Full page down / up |
+| `gg` | Jump to top of buffer |
+| `G` | Jump to bottom (latest output) |
+| `{` / `}` | Jump by paragraph (useful for jumping between Claude responses) |
+
+### Search
+
+| Keys | Action |
+|------|--------|
+| `/pattern` | Search forward |
+| `?pattern` | Search backward |
+| `n` | Next match |
+| `N` | Previous match |
+| `*` | Search for word under cursor |
+
+### Practical Tips
+
+- After Claude finishes a long response, hit `Ctrl+\ Ctrl+n` then `gg` to jump to the top and read from the start
+- Use `/def ` or `/function ` to jump to code definitions Claude wrote
+- Use `?` to search backward from latest output up to where Claude started explaining something
+- Hit `G` then `i` to get back to the prompt at the bottom
+
+---
+
+# tmux Cheatsheet
+## Vim-style scrollback in any terminal (Linux/WSL/Mac)
+
+tmux wraps your terminal session and gives you a vim copy mode to scroll and search all output — works with Claude Code or any CLI tool.
+
+### Setup
+
+```bash
+# Install (Ubuntu/WSL)
+sudo apt install tmux
+
+# Config — add to ~/.tmux.conf
+setw -g mode-keys vi     # enables vim bindings in copy mode
+
+# Start a session
+tmux
+claude                   # run Claude Code inside tmux
+```
+
+### Copy Mode (scrollback navigation)
+
+| Keys | Action |
+|------|--------|
+| `Ctrl+b [` | Enter copy mode (freeze output, start navigating) |
+| `q` | Exit copy mode (back to live terminal) |
+
+### Navigation (inside copy mode)
+
+| Keys | Action |
+|------|--------|
+| `j` / `k` | Down / up one line |
+| `Ctrl+d` / `Ctrl+u` | Half page down / up |
+| `Ctrl+f` / `Ctrl+b` | Full page down / up |
+| `gg` | Jump to top of scrollback |
+| `G` | Jump to bottom (latest output) |
+
+### Search (inside copy mode)
+
+| Keys | Action |
+|------|--------|
+| `/pattern` | Search forward |
+| `?pattern` | Search backward |
+| `n` / `N` | Next / previous match |
+
+### Selection & Copy (inside copy mode)
+
+| Keys | Action |
+|------|--------|
+| `v` | Start visual selection |
+| `y` | Yank (copy) selection, exit copy mode |
+| `Ctrl+b ]` | Paste yanked text |
+
+### Session Management
+
+| Keys | Action |
+|------|--------|
+| `Ctrl+b d` | Detach from session (session keeps running) |
+| `tmux attach` | Re-attach to last session |
+| `tmux ls` | List all sessions |
+| `Ctrl+b c` | New window |
+| `Ctrl+b n` / `p` | Next / previous window |
+| `Ctrl+b %` | Split pane vertically |
+| `Ctrl+b "` | Split pane horizontally |
+| `Ctrl+b arrow` | Move between panes |
