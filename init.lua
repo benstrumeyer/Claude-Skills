@@ -4,6 +4,11 @@ vim.opt.shellcmdflag = "-NoLogo -NoProfile -ExecutionPolicy RemoteSigned -Comman
 vim.opt.shellquote = ""
 vim.opt.shellxquote = ""
 
+-- Re-equalize splits on terminal resize (e.g. WT restored from minimized)
+vim.api.nvim_create_autocmd("VimResized", {
+  callback = function() vim.cmd("wincmd =") end
+})
+
 -- System clipboard integration
 vim.opt.clipboard = 'unnamedplus'
 
@@ -199,6 +204,38 @@ local function do_zoom()
 end
 vim.keymap.set('n', '<C-b>', do_zoom, { noremap = true })
 vim.keymap.set('t', '<C-b>', do_zoom, { noremap = true })
+
+-- MysterySession: open terminal, cd to Mystery-Project, run js
+vim.api.nvim_create_user_command('MysterySession', function()
+  vim.cmd("terminal")
+  vim.schedule(function()
+    local chan = vim.b.terminal_job_id
+    if chan then
+      vim.api.nvim_chan_send(chan, "Set-Location C:\\Users\\ben\\repos\\Mystery-Project; js\r")
+    end
+  end)
+end, {})
+
+-- PetlordzSession: vertical split with Claude in petlordz (left) and mindex (right)
+vim.api.nvim_create_user_command('PetlordzSession', function()
+  local mcp = (vim.env.USERPROFILE or "C:/Users/ben") .. "/.claude/mcp-docs.json"
+  local cmd = 'claude --dangerously-skip-permissions --mcp-config "' .. mcp .. '"'
+  vim.cmd("cd C:/Users/ben/repos/petlordz")
+  vim.cmd("terminal " .. cmd)
+  vim.schedule(function()
+    vim.cmd("stopinsert")
+    vim.cmd("vsplit")
+    vim.cmd("wincmd l")
+    vim.cmd("lcd C:/Users/ben/repos/mindex")
+    vim.cmd("terminal " .. cmd)
+    vim.defer_fn(function()
+      vim.cmd("stopinsert")
+      vim.cmd("wincmd =")
+      vim.cmd("wincmd h")
+      vim.cmd("startinsert")
+    end, 300)
+  end)
+end, {})
 
 -- Alt+u/i/y/o : split panes with fresh terminal (below/above/left/right)
 vim.keymap.set('n', '<A-u>', ':belowright split | term<CR>',               { noremap = true }) -- split below
