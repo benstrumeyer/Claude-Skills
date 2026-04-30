@@ -7,7 +7,6 @@ My day-to-day setup for running multiple Claude instances across projects using 
 ## Overview
 
 - **Windows Terminal** — 3 tabs, each a separate PowerShell session
-- **`yolo`** — PowerShell alias for `nvim`, opens NeoVim in the current directory
 - **NeoVim terminal splits** — each split runs a Claude session or shell command
 - **`Ctrl+Tab`** — switch between WT tabs (mouse thumb button also mapped to this)
 
@@ -16,10 +15,9 @@ My day-to-day setup for running multiple Claude instances across projects using 
 ## Flow Per Tab
 
 1. `cd` into a project directory
-2. `yolo` — open NeoVim
+2. Open NeoVim
 3. Open terminal splits inside NeoVim (see keybindings below)
-4. In each split, `yolo` again (or `cd` + commands) to work in that context
-5. Use split navigation to move between Claude sessions without leaving NeoVim
+4. Use split navigation to move between Claude sessions without leaving NeoVim
 
 Each WT tab = one project context. Each NeoVim split = one Claude session or task.
 
