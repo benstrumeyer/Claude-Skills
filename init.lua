@@ -1,6 +1,6 @@
 -- Use PowerShell as the shell for :terminal
 vim.opt.shell = "powershell"
-vim.opt.shellcmdflag = "-NoLogo -NoProfile -ExecutionPolicy RemoteSigned -Command"
+vim.opt.shellcmdflag = "-NoLogo -ExecutionPolicy RemoteSigned -Command"
 vim.opt.shellquote = ""
 vim.opt.shellxquote = ""
 
@@ -205,36 +205,23 @@ end
 vim.keymap.set('n', '<C-b>', do_zoom, { noremap = true })
 vim.keymap.set('t', '<C-b>', do_zoom, { noremap = true })
 
--- MysterySession: open terminal, cd to Mystery-Project, run js
-vim.api.nvim_create_user_command('MysterySession', function()
+-- Project1Session: open terminal and run startup command (e.g. start services then claude)
+vim.api.nvim_create_user_command('Project1Session', function()
   vim.cmd("terminal")
   vim.schedule(function()
     local chan = vim.b.terminal_job_id
     if chan then
-      vim.api.nvim_chan_send(chan, "Set-Location C:\\Users\\ben\\repos\\Mystery-Project; js\r")
+      vim.api.nvim_chan_send(chan, "Set-Location ~\\repos\\project1; project1\r")
     end
   end)
 end, {})
 
--- PetlordzSession: vertical split with Claude in petlordz (left) and mindex (right)
-vim.api.nvim_create_user_command('PetlordzSession', function()
-  local mcp = (vim.env.USERPROFILE or "C:/Users/ben") .. "/.claude/mcp-docs.json"
+-- Project2Session: Claude in project2
+vim.api.nvim_create_user_command('Project2Session', function()
+  local mcp = (vim.env.USERPROFILE or "C:/Users/user") .. "/.claude/mcp-docs.json"
   local cmd = 'claude --dangerously-skip-permissions --mcp-config "' .. mcp .. '"'
-  vim.cmd("cd C:/Users/ben/repos/petlordz")
+  vim.cmd("cd ~/repos/project2")
   vim.cmd("terminal " .. cmd)
-  vim.schedule(function()
-    vim.cmd("stopinsert")
-    vim.cmd("vsplit")
-    vim.cmd("wincmd l")
-    vim.cmd("lcd C:/Users/ben/repos/mindex")
-    vim.cmd("terminal " .. cmd)
-    vim.defer_fn(function()
-      vim.cmd("stopinsert")
-      vim.cmd("wincmd =")
-      vim.cmd("wincmd h")
-      vim.cmd("startinsert")
-    end, 300)
-  end)
 end, {})
 
 -- Alt+u/i/y/o : split panes with fresh terminal (below/above/left/right)
